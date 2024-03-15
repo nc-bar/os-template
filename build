@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# kernel.c
+clang --target=i386-pc-none-elf -ffreestanding -o kernel.o -c kernel.c
+
+# bootloader
+clang --target=i386-pc-none-elf -o boot.o -c boot.S
+
+# link
+clang --target=i386-pc-none-elf -ffreestanding -nostdlib -Wl,--no-dynamic-linker -Wl,-Tlinker.ld boot.o kernel.o -o kernel.bin
